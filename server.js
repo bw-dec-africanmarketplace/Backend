@@ -4,6 +4,7 @@ const server = express();
 const apiRouter = require("./routes/index.js");
 
 server.use(helmet());
+server.use(cors());
 server.use(express.json());
 server.use("/api", apiRouter);
 
