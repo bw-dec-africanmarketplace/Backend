@@ -11,9 +11,7 @@ function findBy(param) {
 }
 
 function add(user) {
-  return db("users")
-    .insert(user)
-    .then(user => findBy({ id: user[0] }));
+  return db("users").insert(user, ["*"]);
 }
 
 function remove(id) {

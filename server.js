@@ -1,5 +1,6 @@
 const express = require("express");
 const helmet = require("helmet");
+const cors = require("cors");
 const server = express();
 const apiRouter = require("./routes/index.js");
 

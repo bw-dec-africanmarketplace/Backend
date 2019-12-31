@@ -11,15 +11,14 @@ function findBy(id) {
 }
 
 function add(product) {
-  return db("products")
-    .insert(product)
-    .then(prod => findBy(prod[0]));
+  return db("products").insert(product, ["*"]);
 }
 
 function remove(id) {
   return db("products")
     .where({ id })
-    .del();
+    .del()
+    .then(_ => db("products").count("id"));
 }
 
 function update(id, changes) {

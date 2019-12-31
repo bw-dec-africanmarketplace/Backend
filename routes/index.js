@@ -25,7 +25,7 @@ router.get("/users", restrict, async (req, res) => {
 router.get("/user/:id", restrict, async (req, res) => {
   const { id } = req.params;
   try {
-    const user = await users.findBy(id);
+    const user = await users.findBy({ id: id });
     user
       ? res.status(200).json(user)
       : res.status(400).json({ message: "No user with this id exists." });
@@ -135,7 +135,7 @@ router.post("/product-del/:id", restrict, async (req, res) => {
   try {
     const product = await prods.remove(req.params.id);
     product
-      ? res.status(200)
+      ? res.status(200).json(product)
       : res
           .status(400)
           .json({ message: "There was an error deleting this product." });
