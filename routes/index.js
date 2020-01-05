@@ -16,7 +16,7 @@ router.get("/users", restrict, async (req, res) => {
     const allUsers = await users.find();
     allUsers
       ? res.status(200).json(allUsers)
-      : res.status(400).json({ message: "No users found." });
+      : res.status(404).json({ message: "No users found." });
   } catch (error) {
     res.status(500).json({ error: "db error: ", error });
   }
@@ -28,7 +28,7 @@ router.get("/user/:id", restrict, async (req, res) => {
     const user = await users.findBy({ id: id });
     user
       ? res.status(200).json(user)
-      : res.status(400).json({ message: "No user with this id exists." });
+      : res.status(404).json({ message: "No user with this id exists." });
   } catch (error) {
     res.status(500).json({ error: "db error: ", error });
   }
@@ -42,7 +42,7 @@ router.post("/login", async (req, res) => {
       const token = genToken(User);
       res.status(200).json({ message: `Welcome, ${username}`, token: token });
     } else {
-      res.status(400).json({ message: "Invalid Credentials" });
+      res.status(404).json({ message: "User not found." });
     }
   } catch (error) {
     res.status(500).json({ error: "db error: ", error });
@@ -69,7 +69,7 @@ router.get("/categories", restrict, async (req, res) => {
   try {
     const categories = await cats.find();
     if (categories) res.status(200).json(categories);
-    else res.status(400).json({ message: "No categories retrieved." });
+    else res.status(404).json({ message: "No categories retrieved." });
   } catch (error) {
     res.status(500).json({ error: "db error: ", error });
   }
@@ -90,7 +90,7 @@ router.get("/products", restrict, async (req, res) => {
   try {
     const products = await prods.find();
     if (products) res.status(200).json(products);
-    else res.status(400).json({ message: "No products retrieved." });
+    else res.status(404).json({ message: "No products retrieved." });
   } catch (error) {
     res.status(500).json({ error: "db error: ", error });
   }
@@ -150,7 +150,7 @@ router.get("/markets", restrict, async (req, res) => {
     const markets = await marks.find();
     markets
       ? res.status(200).json(markets)
-      : res.status(400).json({ message: "Could not retrieve markets." });
+      : res.status(404).json({ message: "No markets found." });
   } catch (error) {
     res.status(500).json({ error: "db error: ", error });
   }
