@@ -21,13 +21,26 @@ module.exports = {
       }
     }
   },
+  testing: {
+    client: "sqlite3",
+    connection: {
+      filename: "./data/ampDB.db3"
+    },
+    useNullAsDefault: true,
+    migrations: {
+      directory: "./data/migrations"
+    },
+    seeds: {
+      directory: "./data/seeds"
+    },
+    pool: {
+      afterCreate: (conn, done) => {
+        conn.run("PRAGMA foreign_keys = ON", done);
+      }
+    }
+  },
   production: {
     client: "pg",
-    // connection: {
-    //   database: process.env.PG_DB,
-    //   user: process.env.PG_USER,
-    //   password: process.env.PG_PASSWORD
-    // },
     connection: process.env.DATABASE_URL,
     pool: {
       min: 2,
